@@ -1,0 +1,77 @@
+{% extends 'partials/base.html' %}
+{% block title %}
+Data Ketiga
+{% endblock %}
+
+{% block head %}
+<style>
+  .table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+  .table th, .table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+  }
+  .table thead {
+      background-color: #333;
+      color: #fff;
+  }
+  .table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+  }
+  .table tbody td {
+      position: relative;
+  }
+  .table tbody td:hover::before {
+      content: attr(data-value);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 5px 10px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 5px;
+      white-space: nowrap;
+  }
+</style>
+<br>
+<br>
+{% endblock %}
+{% block content %}
+<table class="table table-hover table-bordered table-light">
+    <thead class="thead-dark">
+      <tr>
+        <td colspan="7" style="background-color: #ffffff; color: #000000; text-align: center; font-weight: bold;">Taman Kec. Mandalajati Tahun 2020</td>
+      </tr>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Kecamatan</th>
+        <th scope="col">Kode Kelurahan</th>
+        <th scope="col">Kelurahan</th>
+        <th scope="col">Nama Taman</th>
+        <th scope="col">Lokasi Taman</th>
+        <th scope="col">Luas Taman (m2)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in data %}
+      <tr>
+        <td data-value="{{ forloop.counter }}">{{ forloop.counter }}</td>
+        <td data-value="{{ t.kecamatan }}">{{ t.kecamatan|default:'-' }}</td>
+        <td data-value="{{ t.kode_kelurahan }}">{{ t.kode_kelurahan|default:'-' }}</td> 
+        <td data-value="{{ t.kelurahan }}">{{ t.kelurahan|default:'-' }}</td>
+        <td data-value="{{ t.nama_taman }}">{{ t.nama_taman|default:'-' }}</td>
+        <td data-value="{{ t.lokasi_taman }}">{{ t.lokasi_taman|default:'-' }}</td>
+        <td data-value="{{ t.luas_taman }}">{{ t.luas_taman|default:'-' }}</td>
+      </tr>
+      {% empty %}
+        <tr>
+          <td colspan="7" class="text-danger">No results found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock  %}
